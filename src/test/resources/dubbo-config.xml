@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="demo-consumer"/>
+
+    <!-- zookeeper地址 -->
+    <dubbo:registry address="zookeeper://10.10.10.10:2181" />
+
+    <!-- id定义为接口名，version需要和开发核实当前的接口version -->
+    <dubbo:reference id="IPromiseForOrderService" interface="com.order.promise.api.IPromiseForOrderService" version="1.0" check="true"/>
+    <dubbo:reference id="OrderStatusService" interface="com.tatus.flow.service.OrderStatusService" version="1.2" check="true"/>
+</beans>

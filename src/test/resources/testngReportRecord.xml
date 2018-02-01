@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suites>
+    <!-- suite name，此处填写dubbo-->
+    <suite name="online下单全流程线上监控">
+        <listeners>
+            <listener class-name="org.reportng.HTMLReporter" />
+        </listeners>
+        <tests>
+
+           <test name="订单取消还库存接口（取消）">
+                <classes>
+                    <class name="com.testcase.dubbo.TestIPromiseForOrderService" />
+                </classes>
+            </test>
+
+            <test name="前端页面商品发货周期接口">
+                <classes>
+                    <class name="com.testcase.dubbo.TestOrderStatusService"/>
+                </classes>
+            </test>
+
+            <test name="HTTP接口测试">
+                <classes>
+                    <class name="com.testcase.http.testExampleForGet"></class>
+                    <class name="com.testcase.http.testExampleForPost"></class>
+                </classes>
+            </test>
+
+           <test name="mysql测试">
+                <classes>
+                    <class name="com.testcase.sql.SqlTest"></class>
+                </classes>
+            </test>
+
+            <test name="Jmeter test case">
+                <classes>
+                    <class name="com.testcase.http.testExampleForJmeterData"></class>
+                </classes>
+            </test>
+
+
+            <test name="在线下单全流程监控">
+                <classes>
+                    <class name="com.testcase.http.online.pc.pcOrderAllProcess"></class>
+                </classes>
+            </test>
+
+        </tests>
+    </suite>
+</suites>

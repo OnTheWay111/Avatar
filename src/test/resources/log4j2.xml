@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="off">
+	<appenders>
+		<console name="CONSOLE" target="SYSTEM_OUT">
+			<patternLayout charset="UTF-8"
+				pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%L]-%message%n" />
+		</console>
+
+		<rollingFile name="ROLLINGFILE_DEBUG" fileName="logs/demoDubbo/demoDubbo.debug.log"
+			filePattern="logs/demoDubbo/demoDubbo.debug.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="error" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<thresholdFilter level="error" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8"
+				pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%L]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+
+		<rollingFile name="ROLLINGFILE_INFO" fileName="logs/demoDubbo/demoDubbo.info.log"
+			filePattern="logs/demoDubbo/demoDubbo.info.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="error" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<thresholdFilter level="error" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8"
+				pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%L]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+
+		<rollingFile name="ROLLINGFILE_WARN" fileName="logs/demoDubbo/demoDubbo.warn.log"
+			filePattern="logs/demoDubbo/demoDubbo.warn.log.%date{yyyyMMdd}">
+			<filters>
+				<thresholdFilter level="error" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</filters>
+			<patternLayout charset="UTF-8"
+				pattern="%date{yyyy-MM-dd_HH:mm:ss}[%-5level]%logger[%L]-%message%n" />
+			<policies>
+				<timeBasedTriggeringPolicy />
+			</policies>
+		</rollingFile>
+
+		<async name="ASYNC_DEBUG">
+			<appenderRef ref="ROLLINGFILE_DEBUG" />
+		</async>
+
+		<async name="ASYNC_INFO">
+			<appenderRef ref="ROLLINGFILE_INFO" />
+		</async>
+
+		<async name="ASYNC_WARN">
+			<appenderRef ref="ROLLINGFILE_WARN" />
+		</async>
+	</appenders>
+
+	<loggers>
+		<logger name="com.letv.shop" level="error" additivity="false">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ASYNC_DEBUG" />
+			<appender-ref ref="ASYNC_INFO" />
+			<appender-ref ref="ASYNC_WARN" />
+		</logger>
+		<logger name="dubbo.accesslog" level="error" additivity="false">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ASYNC_DEBUG" />
+			<appender-ref ref="ASYNC_INFO" />
+			<appender-ref ref="ASYNC_WARN" />
+		</logger>
+		<root level="error">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="ASYNC_DEBUG" />
+			<appender-ref ref="ASYNC_INFO" />
+			<appender-ref ref="ASYNC_WARN" />
+		</root>
+	</loggers>
+</configuration>
