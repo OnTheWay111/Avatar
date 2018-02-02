@@ -112,18 +112,19 @@ public class HTMLReporter extends AbstractReporter {
                     if (suiteFailedCount>0) {
                         String AllFileResult = testContext.getFailedTests().getAllResults().toString();
                         if (AllFileResult != null && AllFileResult.length() > 0) {
-                            String methodNameRegex = "[\\s\\S]?method=([\\s\\S]+?)\\[pri[\\s\\S]+?[,\\s]+";
+                       //     String methodNameRegex = "[\\s\\S]?method=([\\s\\S]+?)\\[pri[\\s\\S]+?[,\\s]+";
+                            String methodNameRegex1 = "[\\s\\S]?instance:([\\s\\S]+?)@[\\s\\S]+?[,\\s]+";
                             getMatchers getMatchers = new getMatchers();
-                            List<String> s = getMatchers.getMatchers(methodNameRegex, AllFileResult);
+                            List<String> s = getMatchers.getMatchers(methodNameRegex1, AllFileResult);
                             for (int i = 0; i < s.size(); i++) {
                                 //    System.out.println(s.get(i));
-                                failMethodName = failMethodName + s.get(i) + " / ";
+                                if (!(failMethodName.contains(s.get(i)))) {
+                                    failMethodName = failMethodName + s.get(i) + " / ";
+                                }
+                      //          System.out.println("===========AllFileResult_before==================" + AllFileResult);
                             }
                             System.out.println("===========failMethodName==============\n" + failMethodName + "\n===========================");
 
-                            caseName = new CorrelationFunction().getCorrelationStr(AllFileResult, "TestResult name=", " status=");
-                            methodName = new CorrelationFunction().getCorrelationStr(AllFileResult, "instance:", "AllProcess@");
-                            failReason = new CorrelationFunction().getCorrelationStr(AllFileResult, "output=>>>>>>>>>>>>>>>>>>>>", "<<<<<<<<<<<<<<<<<<<<]]");
                             tableContent = tableContent.append("  <tr>\n" +
                                     "    <td align=\"center\" valign=\"middle\"><font color=\"#0000FF\"><u>" + testContext.getName() + "</u></font></td>\n" +
                                     "    <td bgcolor=\"#00FF99\" align=\"center\" valign=\"middle\">" + data.testContext(testContext).getPassedTestsSize() + "</td>\n" +
@@ -131,13 +132,7 @@ public class HTMLReporter extends AbstractReporter {
                                     "    <td bgcolor=\"#FF3333\" align=\"center\" valign=\"middle\">" + data.testContext(testContext).getFailedTestsSize() + "</td>\n" +
                                     "    <td align=\"center\" valign=\"middle\">" + data.testContext(testContext).getPassPercent() + "</td>\n" +
                                     //    输出失败的用例信息
-                                    "    <td>" +
-                                    failMethodName +
-                                    //"<p><strong>caseName: </strong>" + caseName + "</p>" +
-                                    //"<p><strong>methodName: </strong>" + methodName + "</p>" +
-                                    //"<p><strong>failReason: </strong>" + failReason +
-                                    "</td>\n" +
-
+                                    "    <td>" + failMethodName + "</td>\n" +
                                     "  </tr>\n");
                         } else {
 
@@ -149,6 +144,7 @@ public class HTMLReporter extends AbstractReporter {
                                     "    <td align=\"center\" valign=\"middle\">" + data.testContext(testContext).getPassPercent() + "</td>\n" +
                                     "  </tr>\n");
                         }
+                        failMethodName = "";
                     }
 
                 }
